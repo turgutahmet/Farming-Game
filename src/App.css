@@ -1,0 +1,80 @@
+.App {
+  background-color: #2fbd76;
+  padding: 24px;
+  text-align: center;
+  display: block;
+  min-height: 100vh;
+  color: white;
+}
+*{
+  font-size: 15px;
+}
+
+.App-header {
+  background-color: #2fbd76;  
+  
+  padding: 20px;
+  color: white;font-size: 24px;
+}
+
+.App-logo{
+  height: 60px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  border: solid 1px ;
+}
+.App-logo2{
+  height: 40px;
+  padding: 0;
+  margin: 0;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  text-align: center;
+  border: solid 1px ;
+}
+
+
+.Egg-Number{
+  margin-top: 1rem;
+  
+}
+
+.Button-Chick{
+  height: 60px;
+  width: 60px;
+  background: url(./sources/chicken.png);
+  background-position: center;
+}
+
+@keyframes ticker {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+  }
+  .tcontainer{
+    width: 100%;
+    overflow: hidden;
+    border: solid black;
+  }
+  .ticker-wrap {
+    width: 100%;
+    padding-left: 100%;
+    background-color: #976b0a;
+    
+  }
+  .ticker-move {
+    display: inline-block;
+    white-space: nowrap;
+    padding-right: 100%;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: ticker;
+    animation-duration: 15s;
+  }
+  .ticker-move:hover{
+    animation-play-state: paused;
+  }
+  .ticker-item{
+    display: inline-block;
+    padding: 0 2rem;
+  }
