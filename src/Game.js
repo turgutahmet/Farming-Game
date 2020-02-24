@@ -16,6 +16,7 @@ class Game{
     newTitle = 'Petrol Fiyatları arttı yeme zam ';
     FodderCostLastUpdated = Date.now();
     autoCollectorsLastDate = Date.now();
+    
     collectEgg = () =>{
         this.currentEgg++; 
         this.collectedEgg++;
@@ -27,15 +28,28 @@ class Game{
         return this.fodder >= this.unitFodderCost * this.chickNumber;
     }
 
+    collectEggAuto = () =>{
+        this.currentEgg += this.autoCollector.farmerCount * this.autoCollector.farmerRate * this.chickNumber; this.collectedEgg += this.autoCollector.farmerCount * this.autoCollector.farmerRate * this.chickNumber;
+        this.currentEgg += this.autoCollector.tractorCount * this.autoCollector.tractorRate * this.chickNumber; this.collectedEgg += this.autoCollector.tractorCount * this.autoCollector.tractorRate * this.chickNumber;
+        this.currentEgg += this.autoCollector.windHillCount * this.autoCollector.windHillRate * this.chickNumber; this.collectedEgg += this.autoCollector.windHillCount * this.autoCollector.windHillRate * this.chickNumber;
+        this.fodder -= this.autoCollector.farmerCount * this.autoCollector.farmerRate * this.chickNumber * this.unitFodderCost;
+        this.fodder -= this.autoCollector.tractorCount * this.autoCollector.tractorRate * this.chickNumber * this.unitFodderCost;
+        this.fodder -= this.autoCollector.windHillCount * this.autoCollector.windHillRate * this.chickNumber * this.unitFodderCost;
+    
+    }
+
+    canCollectEggAuto = () =>{
+        const control = (this.autoCollector.farmerCount * this.autoCollector.farmerRate * this.chickNumber * this.unitFodderCost)+
+            (this.autoCollector.tractorCount * this.autoCollector.tractorRate * this.chickNumber * this.unitFodderCost)+
+            (this.autoCollector.windHillCount * this.autoCollector.windHillRate * this.chickNumber * this.unitFodderCost);
+        if(this.fodder > control){
+            return true;
+        }else return false;
+    }
     update = () =>{
         //burası düzelecek 21.02.2020 01.41 SON KALINAN YER
-        if( Date.now() - this.autoCollectorsLastDate > 1000){
-            this.currentEgg += this.autoCollector.farmerCount * this.autoCollector.farmerRate; this.collectedEgg += this.autoCollector.farmerCount * this.autoCollector.farmerRate;
-            this.currentEgg += this.autoCollector.tractorCount * this.autoCollector.tractorRate; this.collectedEgg += this.autoCollector.tractorCount * this.autoCollector.tractorRate;
-            this.currentEgg += this.autoCollector.windHillCount * this.autoCollector.windHillRate; this.collectedEgg += this.autoCollector.windHillCount * this.autoCollector.windHillRate;
-            this.fodder -= this.autoCollector.farmerCount * this.autoCollector.farmerRate * this.chickNumber * this.unitFodderCost;
-            this.fodder -= this.autoCollector.tractorCount * this.autoCollector.tractorRate * this.chickNumber * this.unitFodderCost;
-            this.fodder -= this.autoCollector.windHillCount * this.autoCollector.windHillRate * this.chickNumber * this.unitFodderCost;
+        if( this.canCollectEggAuto () && Date.now() - this.autoCollectorsLastDate > 1000){
+            this.collectEggAuto();
             this.autoCollectorsLastDate = Date.now();
         }
         
